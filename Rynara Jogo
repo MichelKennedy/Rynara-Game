@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quem é mais bonita</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaXNHlcziMswkW3HmIUm6Yeby2de-Lx5u_AQ&usqp=CAU'); /* Novo fundo */
+            background-size: cover; /* Ajusta o tamanho da imagem ao fundo */
+            background-repeat: no-repeat; /* Evita repetição da imagem */
+            background-position: center; /* Centraliza o fundo */
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .image-container {
+            cursor: pointer;
+        }
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+        #result {
+            position: absolute;
+            top: 0; /* Inicia fora da tela */
+            left: 50%;
+            transform: translateX(-50%); /* Centraliza horizontalmente */
+            font-size: 40px;
+            font-weight: bold;
+            color: green;
+            opacity: 0; /* Inicialmente invisível */
+            transition: all 0.5s ease; /* Animação suave */
+        }
+        #correctImage {
+            display: none; /* Inicialmente invisível */
+            width: 300px; /* Tamanho da imagem correta */
+            height: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quem é mais bonita</h1>
+    <div class="images">
+        <div class="image-container" id="optionA" onclick="chooseImage('A')">
+            <img src="https://i.ibb.co/cr3bVSW/IMG-20240908-223225-428.webp" alt="Rynara">
+            <p>Rynara</p>
+        </div>
+        <div class="image-container" id="optionB" onclick="chooseImage('B')">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMZFL5R8K8vSkQM5S_BQgSjHLe4eI_vynilA&usqp=CAU" alt="Bruna Marquezine">
+            <p>Bruna Marquezine</p>
+        </div>
+    </div>
+    <p id="result"></p>
+    <img id="correctImage" src="https://i.ibb.co/cr3bVSW/IMG-20240908-223225-428.webp" alt="Rynara"> <!-- Imagem correta -->
+    <script>
+        function chooseImage(option) {
+            const result = document.getElementById('result');
+            const correctImage = document.getElementById('correctImage');
+            
+            result.innerText = "Você acertou!";
+            result.style.opacity = '0'; // Reseta a opacidade antes de animar
+            result.style.top = '0'; // Inicia fora da tela
+            result.style.transition = 'none'; // Remove transição temporariamente
+            
+            if (option === 'B') {
+                swapImages(); // Troca as imagens ao escolher Bruna Marquezine
+            }
+
+            // Delay para exibir a mensagem
+            setTimeout(() => {
+                result.style.transition = 'all 0.5s ease'; // Define a transição novamente
+                result.style.top = '50%'; // Move a mensagem para o meio
+                result.style.opacity = '1'; // Torna a mensagem visível
+                correctImage.style.display = 'block'; // Exibe a imagem correta
+            }, 500); // Delay de 500ms antes de animar
+        }
+        
+        function swapImages() {
+            const imgA = document.getElementById('optionA').querySelector('img');
+            const imgB = document.getElementById('optionB').querySelector('img');
+            const tempSrc = imgA.src;
+            imgA.src = imgB.src;
+            imgB.src = tempSrc;
+            const tempAlt = imgA.alt;
+            imgA.alt = imgB.alt;
+            imgB.alt = tempAlt;
+        }
+    </script>
+</body>
+</html>
